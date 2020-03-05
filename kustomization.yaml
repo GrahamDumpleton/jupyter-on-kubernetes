@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: jupyterhub-test1
+
+commonLabels:
+  app: jupyterhub-test1
+
+bases:
+- https://github.com/openshift-homeroom/workshop-spawner/resources/overlays/learning-portal?ref=develop
+
+namePrefix: jupyterhub-test1-
+
+configMapGenerator:
+- name: spawner-environ
+  behavior: merge
+  env: settings.txt
+
+patches:
+- ingress.yaml
